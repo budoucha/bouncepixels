@@ -1,0 +1,19 @@
+body {
+    background-color: beige;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type=range] {
+    width: 20em;
+}
+
+div.slider {
+    width: 30em;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-self:center;
+}
