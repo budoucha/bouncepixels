@@ -8,6 +8,7 @@ body {
 
 input[type=range] {
     width: 20em;
+    margin: 0 2em;
 }
 
 div.slider {
@@ -16,4 +17,10 @@ div.slider {
     flex-direction: row;
     justify-content: left;
     align-self: center;
+}
+
+div.slider > label {
+    width: 5em;
+    text-align: right;
+    margin-right: 1em;
 }
