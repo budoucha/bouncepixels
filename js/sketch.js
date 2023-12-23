@@ -96,6 +96,11 @@ const p = new p5(
             }
             const fileUploadElement = document.querySelector("#fileUpload")
             fileUploadElement.addEventListener('change', handleFile)
+
+            // GIF保存ボタン
+            document.querySelector("#gifSave").addEventListener("click", e => {
+                p.saveGif('savedGIF.gif', 3, {delay: 3})
+            })
         }
 
         p.draw = () => {

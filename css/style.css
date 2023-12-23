@@ -19,8 +19,12 @@ div.slider {
     align-self: center;
 }
 
-div.slider > label {
+div.slider>label {
     width: 5em;
     text-align: right;
     margin-right: 1em;
+}
+
+div.gifSaveContainer {
+    margin: 1em;
 }
