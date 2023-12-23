@@ -9,8 +9,8 @@
     <h1>Bouncing Pixels</h1>
     <div id="canvasContainer"></div>
 
-    <div class="radio-group mode">
-        <span>color mode: </span>
+    <div id="modeSwitch" class="radio-group">
+        <label>color mode: </label>
         <input type="radio" name="mode" value="rgb"> RGB
         <input type="radio" name="mode" value="full"> full color
         <input type="radio" name="mode" value="lightness" checked> lightness
@@ -30,7 +30,7 @@
         <span id="speedLabel">speed: </span>
     </div>
     <div>
-        <button id="switchImage"> 画像切替 </button>
+        <button id="imageSwitch" class="btn btn-primary" type="button"> 画像切替 </button>
     </div>
 
     <script type="text/javascript" src="js/p5.min.js"></script>

@@ -40,14 +40,14 @@ const p = new p5(
             }
 
             // モード変更用イベントリスナを登録
-            document.querySelector(".radio-group.mode").addEventListener("change", e => { mode = e.target.value })
+            document.querySelector("#modeSwitch").addEventListener("change", e => { mode = e.target.value })
             // 輝度モード用イベントリスナを登録
             document.querySelector("#applyLuminance").addEventListener("change", e => {
                 applyLuminance = document.querySelector("#applyLuminance").checked
                 console.log(`applyLuminance: ${applyLuminance}`)
             })
             // 画像切り替え
-            document.querySelector("#switchImage").addEventListener("click", e => {
+            document.querySelector("#imageSwitch").addEventListener("click", e => {
                 const which = images.indexOf(img)
                 img = images[(which + 1) % images.length]
                 img.resize(p.width, 0)
