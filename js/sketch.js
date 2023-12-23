@@ -16,13 +16,15 @@ const p = new p5(
         let pixels = []
 
         p.preload = () => {
-            images.push(p.loadImage("./images/image.png"))
-            images.push(p.loadImage("./images/kuratoriatori.png"))
-
-            img = images[0]
+            images["vortex"] = p.loadImage("./images/image.png")
+            images["atori"] = p.loadImage("./images/kuratoriatori.png")
         }
 
         p.setup = () => {
+            const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
+            const selected = imageSelectOptions.filter(option => option.checked)[0].value
+            img = images[selected]
+
             const width = Math.min(window.innerWidth, 640)
             const canvas = p.createCanvas(width, img.height / img.width * width)
             canvas.parent("canvasContainer")
@@ -42,20 +44,22 @@ const p = new p5(
             }
 
             // モード変更用イベントリスナを登録
-            document.querySelector("#modeSwitch").addEventListener("change", e => { mode = e.target.value })
+            document.querySelector("#modeSwitch").addEventListener("change", e => {
+                mode = e.target.value
+            })
             // 輝度モード用イベントリスナを登録
             document.querySelector("#applyLuminance").addEventListener("change", e => {
                 applyLuminance = document.querySelector("#applyLuminance").checked
                 console.log(`applyLuminance: ${applyLuminance}`)
             })
             // 画像切り替え
-            document.querySelector("#imageSwitch").addEventListener("click", e => {
-                const which = images.indexOf(img)
-                img = images[(which + 1) % images.length]
+            document.querySelector("#imageSelect").addEventListener("change", e => {
+                const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
+                const selected = imageSelectOptions.filter(option => option.checked)[0].value
+                img = images[selected]
                 img.resize(p.width, 0)
                 img.loadPixels()
                 pixels = img.pixels
-                console.log(`${which}`)
             })
 
             const scaleElement = document.getElementById("scale")

@@ -35,7 +35,12 @@
         <span id="speedLabel">speed: </span>
     </div>
     <div>
-        <button id="imageSwitch" class="btn btn-primary" type="button"> 画像切替 </button>
+        <div id="imageSelect" class="radio-group">
+            <label>入力画像: </label>
+            <input type="radio" name="image" value="vortex" checked>color vortex
+            <input type="radio" name="image" value="atori">倉鳥アトリ(<a href="https://chat.openai.com/g/g-G5Z8IZbXu-cang-niao-atori" target="_blank">GPTs</a>)
+            <!-- <button id="localImage" class="btn btn-outline-secondary">画像を自由に選択</button> -->
+        </div>
     </div>
 
     <script type="text/javascript" src="js/p5.min.js"></script>
