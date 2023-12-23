@@ -91,8 +91,6 @@ const p = new p5(
                 console.log(`fps: ${p.frameRate()}`)
             }
 
-            //  p.image(img, 0, 0);
-
             // ボール数を更新
             ballSetNum = document.querySelector("#ballSetNum").value
             //現在より多ければ追加  少なければ後ろから削除
@@ -185,7 +183,7 @@ const p = new p5(
 
                     this.sizeBuffer = this.size
                     scale = document.getElementById("scale").value
-                    this.size *= scale * 100/255 // lightnessの方とレンジが違う気がするんだよな…
+                    this.size *= scale * 100 / 255 // lightnessの方とレンジが違う気がするんだよな…
                 } else if (mode == "full") {
                     // 現在位置の画素の色を取得
                     this.color = p.color(r, g, b)
@@ -213,7 +211,6 @@ const p = new p5(
                     scale = document.getElementById("scale").value
                     this.size *= scale
                 }
-
             }
 
             draw() {
