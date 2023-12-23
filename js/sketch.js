@@ -172,7 +172,7 @@ const p = new p5(
 
                     this.sizeBuffer = this.size
                     scale = document.getElementById("scale").value
-                    this.size *= scale
+                    this.size *= scale * 100/255 // lightnessの方とレンジが違う気がするんだよな…
                 } else if (mode == "full") {
                     // 現在位置の画素の色を取得
                     this.color = p.color(r, g, b)
