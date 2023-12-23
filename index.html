@@ -22,6 +22,9 @@
         <input type="radio" name="mode" value="brightness"> brightness
     </div>
     <div>
+        <input type="checkbox" id="trace" name="trace"> 軌跡を残す
+    </div>
+    <div>
         <input type="checkbox" id="applyLuminance" name="applyLuminance"> 輝度補正を有効化(RGBモード専用)
     </div>
     <div class="slider"> <input type="range" id="ballSetNum" name="ballSetNum" min="0" max="8192" value="1024" step="1">
@@ -40,7 +43,7 @@
             <input type="radio" name="image" value="vortex" checked>color vortex
             <input type="radio" name="image" value="atori">倉鳥アトリ(<a
                 href="https://chat.openai.com/g/g-G5Z8IZbXu-cang-niao-atori" target="_blank">GPTs</a>)
-            <!-- <button id="localImage" class="btn btn-outline-secondary">画像を自由に選択</button> -->
+            <button id="uploadButton" class="btn btn-outline-secondary">画像を自由に選択</button>
         </div>
     </div>
 

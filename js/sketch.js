@@ -62,6 +62,7 @@ const p = new p5(
                 pixels = img.pixels
             })
 
+            /* ラベル初期化 */
             const scaleElement = document.getElementById("scale")
             const scaleLabelElement = document.getElementById("scaleLabel")
             scaleLabelElement.innerText = `ballSize: \n${scaleElement.value}`
@@ -76,7 +77,11 @@ const p = new p5(
         }
 
         p.draw = () => {
+            if (document.querySelector("#trace").checked) {
+                p.background(16, 8)
+            } else {
             p.background(16)
+            }
             if (p.frameCount % 60 == 0) {
                 console.log(`fps: ${p.frameRate()}`)
             }
