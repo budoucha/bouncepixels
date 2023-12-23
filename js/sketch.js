@@ -74,6 +74,11 @@ const p = new p5(
             const speedElement = document.getElementById("speed")
             const speedLabelElement = document.getElementById("speedLabel")
             speedLabelElement.innerText = `speed: \n${speedElement.value}`
+
+            const opacityElement = document.getElementById("opacity")
+            const opacityLabelElement = document.getElementById("opacityLabel")
+            opacityLabelElement.innerText = `opacity: \n${opacityElement.value}`
+
         }
 
         p.draw = () => {
@@ -117,6 +122,7 @@ const p = new p5(
             constructor(color) {
                 this.initialColor = color
                 this.color = p.color(this.initialColor)
+                this.alpha = 255
                 // キャンバス内のランダムな位置に配置
                 this.position = [Math.random() * p.width, Math.random() * p.height]
                 // ランダムな初速を与える
@@ -147,6 +153,8 @@ const p = new p5(
                 // 位置を更新
                 this.position[0] += this.velocity[0]
                 this.position[1] += this.velocity[1]
+
+                this.alpha = document.querySelector("#opacity").value
 
                 // 色取得用
                 const positionIntX = Math.round(this.position[0])
@@ -210,6 +218,7 @@ const p = new p5(
 
             draw() {
                 // 色を設定
+                this.color.setAlpha(this.alpha)
                 p.fill(this.color)
                 // 円を描画
                 p.ellipse(this.position[0], this.position[1], this.size)
