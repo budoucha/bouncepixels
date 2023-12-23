@@ -20,21 +20,25 @@ const p = new p5(
             images["atori"] = p.loadImage("./images/kuratoriatori.png")
         }
 
-        p.setup = () => {
-            const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
-            const selected = imageSelectOptions.filter(option => option.checked)[0].value
+        /* 画像を変更したらしたら毎回行う */
+        const changeImageRoutine = (selected) => {
             img = images[selected]
-
             const width = Math.min(window.innerWidth, 640)
-            const canvas = p.createCanvas(width, img.height / img.width * width)
+            img.resize(width, 0)
+            img.loadPixels()
+            pixels = img.pixels
+            canvas = p.createCanvas(width, img.height / img.width * width)
             canvas.parent("canvasContainer")
+        }
+
+
+        p.setup = () => {
             p.pixelDensity(1)
             p.setFrameRate(60)
 
-
-            img.resize(p.width, 0)
-            img.loadPixels()
-            pixels = img.pixels
+            const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
+            const selected = imageSelectOptions.filter(option => option.checked)[0].value
+            changeImageRoutine(selected)
 
             //RGBそれぞれ同数ずつ生成する
             for (let i = 0; i < ballSetNum; i++) {
@@ -56,10 +60,7 @@ const p = new p5(
             document.querySelector("#imageSelect").addEventListener("change", e => {
                 const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
                 const selected = imageSelectOptions.filter(option => option.checked)[0].value
-                img = images[selected]
-                img.resize(p.width, 0)
-                img.loadPixels()
-                pixels = img.pixels
+                changeImageRoutine(selected)
             })
 
             /* ラベル初期化 */
