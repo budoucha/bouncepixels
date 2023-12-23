@@ -7,8 +7,8 @@ const p = new p5(
         let scale = 0.04
         let maxSpeed = 5
         let speed = 1
-        let ballSetNum = 1024 //3個で1セット
-        let mode = "lightness"
+        let ballSetNum = document.querySelector("#ballSetNum").value //3個で1セット
+        let mode = Array.from(document.querySelectorAll("#modeSwitch input[type=radio]")).filter(option => option.checked)[0].value
         let applyLuminance = document.querySelector("#applyLuminance").checked
         const luminance = [0.2126, 0.7152, 0.0722]
         let luminanceScale = 1.25
