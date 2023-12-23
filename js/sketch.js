@@ -88,7 +88,7 @@ const p = new p5(
             p.background(16)
             }
             if (p.frameCount % 60 == 0) {
-                console.log(`fps: ${p.frameRate()}`)
+                // console.log(`fps: ${p.frameRate()}`)
             }
 
             // ボール数を更新
