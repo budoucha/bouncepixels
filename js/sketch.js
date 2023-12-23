@@ -27,6 +27,8 @@ const p = new p5(
             const canvas = p.createCanvas(width, img.height / img.width * width)
             canvas.parent("canvasContainer")
             p.pixelDensity(1)
+            p.setFrameRate(60)
+
 
             img.resize(p.width, 0)
             img.loadPixels()
@@ -71,6 +73,9 @@ const p = new p5(
 
         p.draw = () => {
             p.background(16)
+            if (p.frameCount % 60 == 0) {
+                console.log(`fps: ${p.frameRate()}`)
+            }
 
             //  p.image(img, 0, 0);
 
