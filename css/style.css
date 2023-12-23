@@ -15,5 +15,5 @@ div.slider {
     display: flex;
     flex-direction: row;
     justify-content: left;
-    align-self:center;
+    align-self: center;
 }
