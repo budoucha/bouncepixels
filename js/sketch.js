@@ -116,7 +116,7 @@ const p = new p5(
         class ColorBall {
             constructor(color) {
                 this.initialColor = color
-                this.color = this.initialColor
+                this.color = p.color(this.initialColor)
                 // キャンバス内のランダムな位置に配置
                 this.position = [Math.random() * p.width, Math.random() * p.height]
                 // ランダムな初速を与える
@@ -164,7 +164,7 @@ const p = new p5(
                 /* モードごとの処理 */
                 if (mode == "rgb") {
                     // 色は初期のR/G/Bに戻す
-                    this.color = this.initialColor
+                    this.color = p.color(this.initialColor)
 
                     /* サイズを更新 */
                     // 自身の色
