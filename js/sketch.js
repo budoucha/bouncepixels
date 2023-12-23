@@ -1,5 +1,6 @@
 const p = new p5(
     p => {
+        let canvas
         const colorBalls = []
         let img
         let images = []
@@ -80,6 +81,21 @@ const p = new p5(
             const opacityLabelElement = document.getElementById("opacityLabel")
             opacityLabelElement.innerText = `opacity: \n${opacityElement.value}`
 
+            /* ファイル選択 */
+            const handleFile = (e) => {
+                const file = e.target.files[0]
+                if (file && file.type.startsWith('image/')) {
+                    images["user"] = p.loadImage(URL.createObjectURL(file),
+                        () => {
+                            // ラジオボタンジャマーキャンセラー
+                            document.querySelector("#imageSelect>[name=image][value=user]").disabled = false
+                        })
+                } else {
+                    console.log("Something went wrong.")
+                }
+            }
+            const fileUploadElement = document.querySelector("#fileUpload")
+            fileUploadElement.addEventListener('change', handleFile)
         }
 
         p.draw = () => {
