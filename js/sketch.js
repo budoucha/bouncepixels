@@ -5,7 +5,7 @@ const p = new p5(
         let images = []
 
         let scale = 0.04
-        let maxSpeed = 10
+        let maxSpeed = 5
         let speed = 1
         let ballSetNum = 1024 //3個で1セット
         let mode = "lightness"
@@ -209,6 +209,7 @@ const p = new p5(
     }
 )
 
+/* ラベル書き換え用 */
 const scaleElement = document.getElementById("scale")
 const scaleLabelElement = document.getElementById("scaleLabel")
 scaleElement.addEventListener("input", e => {
