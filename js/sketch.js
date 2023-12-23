@@ -104,6 +104,8 @@ const p = new p5(
             document.querySelector("#gifSave3").addEventListener("click", e => {
                 p.saveGif('savedGIF.gif', 3, {delay: 3})
             })
+
+            p.background(0)
         }
 
         p.draw = () => {
