@@ -85,7 +85,7 @@ const p = new p5(
             if (document.querySelector("#trace").checked) {
                 p.background(16, 8)
             } else {
-            p.background(16)
+                p.background(16)
             }
             if (p.frameCount % 60 == 0) {
                 // console.log(`fps: ${p.frameRate()}`)
@@ -241,4 +241,10 @@ const speedElement = document.getElementById("speed")
 const speedLabelElement = document.getElementById("speedLabel")
 speedElement.addEventListener("input", e => {
     speedLabelElement.innerText = `speed: \n${speedElement.value}`
+})
+
+const opacityElement = document.getElementById("opacity")
+const opacityLabelElement = document.getElementById("opacityLabel")
+opacityElement.addEventListener("input", e => {
+    opacityLabelElement.innerText = `opacity: \n${opacityElement.value}`
 })
