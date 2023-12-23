@@ -217,17 +217,17 @@ const p = new p5(
 const scaleElement = document.getElementById("scale")
 const scaleLabelElement = document.getElementById("scaleLabel")
 scaleElement.addEventListener("input", e => {
-    scaleLabelElement.innerText = `ballSize: ${scaleElement.value}`
+    scaleLabelElement.innerText = `ballSize: \n${scaleElement.value}`
 })
 
 const ballSetNumElement = document.getElementById("ballSetNum")
 const ballSetNumLabelElement = document.getElementById("ballSetNumLabel")
 ballSetNumElement.addEventListener("input", e => {
-    ballSetNumLabelElement.innerText = `ballSetNum: ${ballSetNumElement.value}`
+    ballSetNumLabelElement.innerText = `ballSetNum: \n${ballSetNumElement.value}`
 })
 
 const speedElement = document.getElementById("speed")
 const speedLabelElement = document.getElementById("speedLabel")
 speedElement.addEventListener("input", e => {
-    speedLabelElement.innerText = `speed: ${speedElement.value}`
+    speedLabelElement.innerText = `speed: \n${speedElement.value}`
 })
