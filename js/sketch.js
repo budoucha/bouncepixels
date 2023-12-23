@@ -23,7 +23,7 @@ const p = new p5(
         }
 
         p.setup = () => {
-            const width = Math.min(window.innerWidth, 720)
+            const width = Math.min(window.innerWidth, 640)
             const canvas = p.createCanvas(width, img.height / img.width * width)
             canvas.parent("canvasContainer")
             p.pixelDensity(1)
