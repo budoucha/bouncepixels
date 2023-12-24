@@ -9,7 +9,7 @@ const p = new p5(
         let maxSpeed = 5
         let speed = 1
         let ballSetNum = document.querySelector("#ballSetNum").value //3個で1セット
-        let mode = Array.from(document.querySelectorAll("#modeSwitch input[type=radio]")).filter(option => option.checked)[0].value
+        let colorMode = Array.from(document.querySelectorAll("#colorMode input[type=radio]")).filter(option => option.checked)[0].value
         let applyLuminance = document.querySelector("#applyLuminance").checked
         const luminance = [0.2126, 0.7152, 0.0722]
         let luminanceScale = 1.25
@@ -49,8 +49,8 @@ const p = new p5(
             }
 
             // モード変更用イベントリスナを登録
-            document.querySelector("#modeSwitch").addEventListener("change", e => {
-                mode = e.target.value
+            document.querySelector("#colorMode").addEventListener("change", e => {
+                colorMode = e.target.value
             })
             // 輝度モード用イベントリスナを登録
             document.querySelector("#applyLuminance").addEventListener("change", e => {
@@ -195,7 +195,7 @@ const p = new p5(
                 ]
 
                 /* モードごとの処理 */
-                if (mode == "rgb") {
+                if (colorMode == "rgb") {
                     // 色は初期のR/G/Bに戻す
                     this.color = p.color(this.initialColor)
 
@@ -211,14 +211,14 @@ const p = new p5(
                     this.sizeBuffer = this.size
                     scale = document.getElementById("scale").value
                     this.size *= scale * 100 / 255 // lightnessの方とレンジが違う気がするんだよな…
-                } else if (mode == "full") {
+                } else if (colorMode == "full") {
                     // 現在位置の画素の色を取得
                     this.color = p.color(r, g, b)
                     //保存されたサイズを使う
                     this.size = this.sizeBuffer
                     scale = document.getElementById("scale").value
                     this.size *= scale
-                } else if (mode == "lightness") {
+                } else if (colorMode == "lightness") {
                     this.color = p.color(255)
                     // 色の明度を取得
                     const lightness = p.lightness(p.color(r, g, b))
@@ -228,7 +228,7 @@ const p = new p5(
                     scale = document.getElementById("scale").value
                     this.size *= scale
                 }
-                else if (mode == "brightness") {
+                else if (colorMode == "brightness") {
                     this.color = p.color(255)
                     // 色の明度を取得
                     const brightness = p.brightness(p.color(r, g, b))
