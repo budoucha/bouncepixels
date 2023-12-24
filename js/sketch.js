@@ -109,6 +109,7 @@ const p = new p5(
         }
 
         p.draw = () => {
+            p.blendMode(p.BLEND)
             if (document.querySelector("#trace").checked) {
                 p.background(16, 8)
             } else {
@@ -140,6 +141,8 @@ const p = new p5(
             // ボールを描画
             p.noStroke()
             p.ellipseMode(p.RADIUS)
+            const blendMode = Array.from(document.querySelectorAll("#blendMode input[type=radio]")).filter(option => option.checked)[0].value
+            p.blendMode(p[blendMode])
             colorBalls.forEach(ball => ball.draw())
         }
 
