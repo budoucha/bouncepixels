@@ -99,6 +99,9 @@ const p = new p5(
 
             // GIF保存ボタン
             document.querySelector("#gifSave1").addEventListener("click", e => {
+                p.saveGif('savedGIF.gif', 0.5, { delay: 3 })
+            })
+            document.querySelector("#gifSave1").addEventListener("click", e => {
                 p.saveGif('savedGIF.gif', 1, { delay: 3 })
             })
             document.querySelector("#gifSave3").addEventListener("click", e => {
