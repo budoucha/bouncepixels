@@ -98,7 +98,7 @@ const p = new p5(
             fileUploadElement.addEventListener('change', handleFile)
 
             // GIF保存ボタン
-            document.querySelector("#gifSave1").addEventListener("click", e => {
+            document.querySelector("#gifSave05").addEventListener("click", e => {
                 p.saveGif('savedGIF.gif', 0.5, { delay: 3 })
             })
             document.querySelector("#gifSave1").addEventListener("click", e => {
