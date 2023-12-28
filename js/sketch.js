@@ -10,9 +10,6 @@ const p = new p5(
         let speed = 1
         let ballSetNum = document.querySelector("#ballSetNum").value //3個で1セット
         let colorMode = Array.from(document.querySelectorAll("#colorMode input[type=radio]")).filter(option => option.checked)[0].value
-        let applyLuminance = document.querySelector("#applyLuminance").checked
-        const luminance = [0.2126, 0.7152, 0.0722]
-        let luminanceScale = 1.25
         let defaultSize = 200
         let pixels = []
 
@@ -51,11 +48,6 @@ const p = new p5(
             // モード変更用イベントリスナを登録
             document.querySelector("#colorMode").addEventListener("change", e => {
                 colorMode = e.target.value
-            })
-            // 輝度モード用イベントリスナを登録
-            document.querySelector("#applyLuminance").addEventListener("change", e => {
-                applyLuminance = document.querySelector("#applyLuminance").checked
-                console.log(`applyLuminance: ${applyLuminance}`)
             })
             // 画像切り替え
             document.querySelector("#imageSelect").addEventListener("change", e => {
@@ -209,10 +201,7 @@ const p = new p5(
                     // 自身の色
                     const which = this.initialColor.indexOf(Math.max(...this.initialColor))
                     // サイズに反映
-                    this.size = applyLuminance ?
-                        // [r, g, b][which] * Math.sqrt((1/luminance[which])) * luminanceScale :
-                        [r, g, b][which] * Math.sqrt(1 - luminance[which]) * luminanceScale :
-                        [r, g, b][which]
+                    this.size = [r, g, b][which]
 
                     this.sizeBuffer = this.size
                     scale = document.getElementById("scale").value
