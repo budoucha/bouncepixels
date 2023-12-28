@@ -223,16 +223,6 @@ const p = new p5(
                     scale = document.getElementById("scale").value
                     this.size *= scale
                 }
-                else if (colorMode == "brightness") {
-                    this.color = p.color(255)
-                    // 色の明度を取得
-                    const brightness = p.brightness(p.color(r, g, b))
-                    // サイズに反映
-                    this.size = brightness
-                    this.sizeBuffer = this.size
-                    scale = document.getElementById("scale").value
-                    this.size *= scale
-                }
             }
 
             draw() {
