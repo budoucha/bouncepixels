@@ -1,3 +1,5 @@
+const sliders = ['scale', 'ballSetNum', 'speed', 'opacity']
+
 const p = new p5(
     p => {
         let canvas
@@ -57,21 +59,11 @@ const p = new p5(
             })
 
             /* ラベル初期化 */
-            const scaleElement = document.getElementById("scale")
-            const scaleLabelElement = document.getElementById("scaleLabel")
-            scaleLabelElement.innerText = `ballSize: \n${scaleElement.value}`
-
-            const ballSetNumElement = document.getElementById("ballSetNum")
-            const ballSetNumLabelElement = document.getElementById("ballSetNumLabel")
-            ballSetNumLabelElement.innerText = `ballSetNum: \n${ballSetNumElement.value}`
-
-            const speedElement = document.getElementById("speed")
-            const speedLabelElement = document.getElementById("speedLabel")
-            speedLabelElement.innerText = `speed: \n${speedElement.value}`
-
-            const opacityElement = document.getElementById("opacity")
-            const opacityLabelElement = document.getElementById("opacityLabel")
-            opacityLabelElement.innerText = `opacity: \n${opacityElement.value}`
+            sliders.forEach(slider => {
+                const element = document.getElementById(slider)
+                const labelElement = document.getElementById(`${slider}Label`)
+                labelElement.innerText = `${slider}: \n${element.value}`
+            })
 
             /* ファイル選択 */
             const handleFile = (e) => {
@@ -237,26 +229,8 @@ const p = new p5(
 )
 
 /* ラベル書き換え用 */
-const scaleElement = document.getElementById("scale")
-const scaleLabelElement = document.getElementById("scaleLabel")
-scaleElement.addEventListener("input", e => {
-    scaleLabelElement.innerText = `ballSize: \n${scaleElement.value}`
-})
-
-const ballSetNumElement = document.getElementById("ballSetNum")
-const ballSetNumLabelElement = document.getElementById("ballSetNumLabel")
-ballSetNumElement.addEventListener("input", e => {
-    ballSetNumLabelElement.innerText = `ballSetNum: \n${ballSetNumElement.value}`
-})
-
-const speedElement = document.getElementById("speed")
-const speedLabelElement = document.getElementById("speedLabel")
-speedElement.addEventListener("input", e => {
-    speedLabelElement.innerText = `speed: \n${speedElement.value}`
-})
-
-const opacityElement = document.getElementById("opacity")
-const opacityLabelElement = document.getElementById("opacityLabel")
-opacityElement.addEventListener("input", e => {
-    opacityLabelElement.innerText = `opacity: \n${opacityElement.value}`
+sliders.forEach(slider => {
+    const element = document.getElementById(slider)
+    const labelElement = document.getElementById(`${slider}Label`)
+    labelElement.innerText = `${slider}: \n${element.value}`
 })
