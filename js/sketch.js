@@ -179,7 +179,7 @@ const p = new p5(
 
                 // 位置の画素の色の対応する原色値を取得
                 const pos2index = (x, y) => { return (x + y * img.width) * 4 }
-                c  onst pixelIndex = pos2index(positionIntX, positionIntY)
+                const pixelIndex = pos2index(positionIntX, positionIntY)
                 const [r, g, b] = [
                     pixels[pixelIndex],
                     pixels[pixelIndex + 1],
