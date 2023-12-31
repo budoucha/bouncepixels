@@ -164,11 +164,11 @@ const p = new p5(
                 //画面端で跳ね返る
                 if (this.position[0] < 0 || this.position[0] > p.width) {
                     this.position[0] = this.position[0] < 0 ? 0 : p.width
-                    this.velocity[0] *= -1
+                    this.velocityBuffer[0] *= -1
                 }
                 if (this.position[1] < 0 || this.position[1] > p.height) {
                     this.position[1] = this.position[1] < 0 ? 0 : p.height
-                    this.velocity[1] *= -1
+                    this.velocityBuffer[1] *= -1
                 }
 
                 this.alpha = document.querySelector("#opacity").value
