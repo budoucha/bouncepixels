@@ -151,13 +151,6 @@ const p = new p5(
             update() {
                 /* 共通処理 */
                 this.velocity = { ...this.velocityBuffer }
-                //画面端で跳ね返る
-                if (this.position[0] < 0 || this.position[0] > p.width) {
-                    this.velocity[0] *= -1
-                }
-                if (this.position[1] < 0 || this.position[1] > p.height) {
-                    this.velocity[1] *= -1
-                }
                 // 速度のバッファを更新
                 this.velocityBuffer = { ...this.velocity }
 
@@ -168,6 +161,15 @@ const p = new p5(
                 // 位置を更新
                 this.position[0] += this.velocity[0]
                 this.position[1] += this.velocity[1]
+                //画面端で跳ね返る
+                if (this.position[0] < 0 || this.position[0] > p.width) {
+                    this.position[0] = this.position[0] < 0 ? 0 : p.width
+                    this.velocity[0] *= -1
+                }
+                if (this.position[1] < 0 || this.position[1] > p.height) {
+                    this.position[1] = this.position[1] < 0 ? 0 : p.height
+                    this.velocity[1] *= -1
+                }
 
                 this.alpha = document.querySelector("#opacity").value
 
@@ -177,7 +179,7 @@ const p = new p5(
 
                 // 位置の画素の色の対応する原色値を取得
                 const pos2index = (x, y) => { return (x + y * img.width) * 4 }
-                const pixelIndex = pos2index(positionIntX, positionIntY)
+                c  onst pixelIndex = pos2index(positionIntX, positionIntY)
                 const [r, g, b] = [
                     pixels[pixelIndex],
                     pixels[pixelIndex + 1],
