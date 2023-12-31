@@ -232,5 +232,7 @@ const p = new p5(
 sliders.forEach(slider => {
     const element = document.getElementById(slider)
     const labelElement = document.getElementById(`${slider}Label`)
+    element.addEventListener("input", e => {
     labelElement.innerText = `${slider}: \n${element.value}`
+    })
 })
