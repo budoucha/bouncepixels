@@ -60,9 +60,14 @@ const p = new p5(
 
             /* ラベル初期化 */
             sliders.forEach(slider => {
-                const element = document.getElementById(slider)
+                const sliderElement = document.getElementById(slider)
                 const labelElement = document.getElementById(`${slider}Label`)
-                labelElement.innerText = `${slider}: \n${element.value}`
+                /* ラベル書き換え用 */
+                sliderElement.addEventListener("input", e => {
+                    labelElement.innerText = `${slider}: \n${sliderElement.value}`
+                })
+                /* 初期化 */
+                sliderElement.dispatchEvent(new Event("input"))
             })
 
             /* ファイル選択 */
@@ -230,11 +235,3 @@ const p = new p5(
     }
 )
 
-/* ラベル書き換え用 */
-sliders.forEach(slider => {
-    const element = document.getElementById(slider)
-    const labelElement = document.getElementById(`${slider}Label`)
-    element.addEventListener("input", e => {
-        labelElement.innerText = `${slider}: \n${element.value}`
-    })
-})
