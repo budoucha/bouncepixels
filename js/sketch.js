@@ -109,7 +109,8 @@ const p = new p5(
                 p.background(16)
             }
             if (devMode) {
-                p.text(p.frameRate().toFixed(2), 10, 10)
+                p.textSize(20)
+                p.text(p.frameRate().toFixed(2), 10, 20)
             }
 
             // ボール数を更新
@@ -153,8 +154,6 @@ const p = new p5(
             update() {
                 /* 共通処理 */
                 this.velocity = { ...this.velocityBuffer }
-                // 速度のバッファを更新
-                this.velocityBuffer = { ...this.velocity }
 
                 // 速度をスケール
                 this.velocity[0] *= params.speed
