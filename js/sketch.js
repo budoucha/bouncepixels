@@ -226,7 +226,7 @@ const p = new p5(
 
             draw() {
                 // 色を設定
-                this.color.setAlpha(params.alpha)
+                this.color.setAlpha(params.opacity)
                 p.fill(this.color)
                 // 円を描画
                 p.ellipse(this.position[0], this.position[1], this.size)
