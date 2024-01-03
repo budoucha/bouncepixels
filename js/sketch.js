@@ -8,29 +8,18 @@ const p = new p5(
         const colorBalls = []
         let img
         let images = []
+        let pixels = []
 
         let maxSpeed = 5
         let ballSetNum = document.querySelector("#ballSetNum").value //3個で1セット
         let colorMode = Array.from(document.querySelectorAll("#colorMode input[type=radio]")).filter(option => option.checked)[0].value
         let defaultSize = 200
-        let pixels = []
+
 
         p.preload = () => {
             images["vortex"] = p.loadImage("./images/image.png")
             images["atori"] = p.loadImage("./images/kuratoriatori.png")
         }
-
-        /* 画像を変更したらしたら毎回行う */
-        const changeImageRoutine = (selected) => {
-            img = images[selected]
-            const width = Math.min(window.innerWidth, 512)
-            img.resize(width, 0)
-            img.loadPixels()
-            pixels = img.pixels
-            canvas = p.createCanvas(width, img.height / img.width * width)
-            canvas.parent("canvasContainer")
-        }
-
 
         p.setup = () => {
             p.pixelDensity(1)
@@ -51,25 +40,27 @@ const p = new p5(
             document.querySelector("#colorMode").addEventListener("change", e => {
                 colorMode = e.target.value
             })
-            // 画像切り替え
-            document.querySelector("#imageSelect").addEventListener("change", e => {
-                const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
-                const selected = imageSelectOptions.filter(option => option.checked)[0].value
-                changeImageRoutine(selected)
-            })
 
-            /* ラベル初期化 */
+            /* スライダ共通処理 */
             sliders.forEach(slider => {
                 const sliderElement = document.getElementById(slider)
                 const labelElement = document.getElementById(`${slider}Label`)
-                /* ラベル書き換え用 */
+                // 更新時
                 sliderElement.addEventListener("input", e => {
                     labelElement.innerText = `${slider}: \n${sliderElement.value}`
                     params[slider] = sliderElement.value
                 })
-                /* 初期化 */
+                // 初期化
                 sliderElement.dispatchEvent(new Event("input"))
             })
+            // 画像切り替え
+            const imageSelectElement = document.querySelector("#imageSelect")
+            imageSelectElement.addEventListener("change", e => {
+                const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
+                const selected = imageSelectOptions.filter(option => option.checked)[0].value
+                changeImageRoutine(selected)
+            })
+            imageSelectElement.dispatchEvent(new Event("change"))
 
             /* ファイル選択 */
             const handleFile = (e) => {
@@ -84,8 +75,8 @@ const p = new p5(
                     console.log("Something went wrong.")
                 }
             }
-            const fileUploadElement = document.querySelector("#fileUpload")
-            fileUploadElement.addEventListener('change', handleFile)
+            const fileSelectElement = document.querySelector("#fileSelect")
+            fileSelectElement.addEventListener('change', handleFile)
 
             // GIF保存ボタン
             document.querySelector("#gifSave05").addEventListener("click", e => {
@@ -137,6 +128,17 @@ const p = new p5(
             colorBalls.forEach(ball => ball.draw())
         }
 
+        /* 画像を変更したらしたら毎回行う */
+        const changeImageRoutine = (selected) => {
+            img = images[selected]
+            const width = Math.min(window.innerWidth, 512)
+            img.resize(width, 0)
+            img.loadPixels()
+            pixels = img.pixels
+            canvas = p.createCanvas(width, img.height / img.width * width)
+            canvas.parent("canvasContainer")
+        }
+
         class ColorBall {
             constructor(color) {
                 this.initialColor = color
@@ -155,30 +157,26 @@ const p = new p5(
                 /* 共通処理 */
                 this.velocity = { ...this.velocityBuffer }
 
+                const positionInt = [] // 色取得用に整数化した座標
+                
+                for (let i = 0; i < 2; i++) {
                 // 速度をスケール
-                this.velocity[0] *= params.speed
-                this.velocity[1] *= params.speed
-
+                    this.velocity[i] *= params.speed
                 // 位置を更新
-                this.position[0] += this.velocity[0]
-                this.position[1] += this.velocity[1]
-                //画面端で跳ね返る
-                if (this.position[0] < 0 || this.position[0] > p.width) {
-                    this.position[0] = this.position[0] < 0 ? 0 : p.width
-                    this.velocityBuffer[0] *= -1
-                }
-                if (this.position[1] < 0 || this.position[1] > p.height) {
-                    this.position[1] = this.position[1] < 0 ? 0 : p.height
-                    this.velocityBuffer[1] *= -1
+                    this.position[i] += this.velocity[i]
+                    //画面端で跳ね返る
+                    const canvasSize = [p.width, p.height]
+                    if (this.position[i] < 0 || this.position[i] > canvasSize[i]) {
+                        this.position[i] = this.position[i] < 0 ? 0 : canvasSize[i]
+                        this.velocityBuffer[i] *= -1
                 }
 
-                // 色取得用
-                const positionIntX = Math.round(this.position[0])
-                const positionIntY = Math.round(this.position[1])
+                    positionInt[i] = Math.round(this.position[i])
+                }
 
                 // 位置の画素の色の対応する原色値を取得
                 const pos2index = (x, y) => { return (x + y * img.width) * 4 }
-                const pixelIndex = pos2index(positionIntX, positionIntY)
+                const pixelIndex = pos2index(positionInt[0], positionInt[1])
                 const [r, g, b] = [
                     pixels[pixelIndex],
                     pixels[pixelIndex + 1],
