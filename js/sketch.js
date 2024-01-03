@@ -1,5 +1,6 @@
 const devMode = false
 const sliders = ['scale', 'ballSets', 'speed', 'opacity']
+const radios = ['colorMode', 'blendMode']
 const params = {}
 
 const p = new p5(
@@ -11,9 +12,7 @@ const p = new p5(
         let pixels = []
 
         let maxSpeed = 5
-        let colorMode = Array.from(document.querySelectorAll("#colorMode input[type=radio]")).filter(option => option.checked)[0].value
         let defaultSize = 200
-
 
         p.preload = () => {
             images["vortex"] = p.loadImage("./images/image.png")
@@ -28,11 +27,17 @@ const p = new p5(
             const selected = imageSelectOptions.filter(option => option.checked)[0].value
             changeImageRoutine(selected)
 
-            // モード変更用イベントリスナを登録
-            document.querySelector("#colorMode").addEventListener("change", e => {
-                colorMode = e.target.value
+            /* ラジオボタン共通処理 */
+            radios.forEach(radio => {
+                const radioElement = document.querySelector(`#${radio}`)
+                radioElement.addEventListener("change", e => {
+                    const options = Array.from(document.querySelectorAll(`#${radio} input[type=radio]`))
+                    params[radio] = options.filter(option => option.checked)[0].value
+                    console.log(params[radio])
+                })
+                // 初期化
+                radioElement.dispatchEvent(new Event("change"))
             })
-
             /* スライダ共通処理 */
             sliders.forEach(slider => {
                 const sliderElement = document.getElementById(slider)
