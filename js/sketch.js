@@ -1,5 +1,5 @@
 const devMode = false
-const sliders = ['scale', 'ballSetNum', 'speed', 'opacity']
+const sliders = ['scale', 'ballSets', 'speed', 'opacity']
 const params = {}
 
 const p = new p5(
@@ -11,7 +11,6 @@ const p = new p5(
         let pixels = []
 
         let maxSpeed = 5
-        let ballSetNum = document.querySelector("#ballSetNum").value //3個で1セット
         let colorMode = Array.from(document.querySelectorAll("#colorMode input[type=radio]")).filter(option => option.checked)[0].value
         let defaultSize = 200
 
@@ -28,13 +27,6 @@ const p = new p5(
             const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
             const selected = imageSelectOptions.filter(option => option.checked)[0].value
             changeImageRoutine(selected)
-
-            //RGBそれぞれ同数ずつ生成する
-            for (let i = 0; i < ballSetNum; i++) {
-                colorBalls.push(new ColorBall([255, 0, 0]))
-                colorBalls.push(new ColorBall([0, 255, 0]))
-                colorBalls.push(new ColorBall([0, 0, 255]))
-            }
 
             // モード変更用イベントリスナを登録
             document.querySelector("#colorMode").addEventListener("change", e => {
@@ -53,6 +45,10 @@ const p = new p5(
                 // 初期化
                 sliderElement.dispatchEvent(new Event("input"))
             })
+            // 個数のみ更新時に再初期化する
+            document.querySelector("#ballSets").addEventListener("input", setColorBalls)
+            setColorBalls()
+
             // 画像切り替え
             const imageSelectElement = document.querySelector("#imageSelect")
             imageSelectElement.addEventListener("change", e => {
@@ -104,18 +100,6 @@ const p = new p5(
                 p.text(p.frameRate().toFixed(2), 10, 20)
             }
 
-            // ボール数を更新
-            ballSetNum = document.querySelector("#ballSetNum").value
-            //現在より多ければ追加  少なければ後ろから削除
-            if (ballSetNum * 3 > colorBalls.length) {
-                for (let i = 0; i < ballSetNum * 3 - colorBalls.length; i++) {
-                    colorBalls.push(new ColorBall([255, 0, 0]))
-                    colorBalls.push(new ColorBall([0, 255, 0]))
-                    colorBalls.push(new ColorBall([0, 0, 255]))
-                }
-            } else if (ballSetNum * 3 < colorBalls.length) {
-                colorBalls.splice(ballSetNum * 3)
-            }
 
             // ボールを更新
             colorBalls.forEach(ball => ball.update())
@@ -137,6 +121,20 @@ const p = new p5(
             pixels = img.pixels
             canvas = p.createCanvas(width, img.height / img.width * width)
             canvas.parent("canvasContainer")
+        }
+
+        const setColorBalls = () => {
+            // RGBそれぞれ同数ずつ生成する
+            // 指定よりすくなければ追加  多ければ後ろから削除
+            if (params.ballSets * 3 > colorBalls.length) {
+                for (let i = 0; i < params.ballSets * 3 - colorBalls.length; i++) {
+                    colorBalls.push(new ColorBall([255, 0, 0]))
+                    colorBalls.push(new ColorBall([0, 255, 0]))
+                    colorBalls.push(new ColorBall([0, 0, 255]))
+                }
+            } else if (params.ballSets * 3 < colorBalls.length) {
+                colorBalls.splice(params.ballSets * 3)
+            }
         }
 
         class ColorBall {
