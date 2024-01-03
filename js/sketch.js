@@ -1,4 +1,6 @@
+const devMode = false
 const sliders = ['scale', 'ballSetNum', 'speed', 'opacity']
+const params = {}
 
 const p = new p5(
     p => {
@@ -65,6 +67,7 @@ const p = new p5(
                 /* ラベル書き換え用 */
                 sliderElement.addEventListener("input", e => {
                     labelElement.innerText = `${slider}: \n${sliderElement.value}`
+                    params[slider] = sliderElement.value
                 })
                 /* 初期化 */
                 sliderElement.dispatchEvent(new Event("input"))
@@ -107,8 +110,8 @@ const p = new p5(
             } else {
                 p.background(16)
             }
-            if (p.frameCount % 60 == 0) {
-                // console.log(`fps: ${p.frameRate()}`)
+            if (devMode) {
+                p.text(p.frameRate().toFixed(2), 10, 10)
             }
 
             // ボール数を更新
@@ -125,7 +128,7 @@ const p = new p5(
             }
 
             // 速度を更新
-            speed = document.querySelector("#speed").value
+            speed = params.speed
 
             // ボールを更新
             colorBalls.forEach(ball => ball.update())
@@ -142,7 +145,6 @@ const p = new p5(
             constructor(color) {
                 this.initialColor = color
                 this.color = p.color(this.initialColor)
-                this.alpha = 255
                 // キャンバス内のランダムな位置に配置
                 this.position = [Math.random() * p.width, Math.random() * p.height]
                 // ランダムな初速を与える
@@ -176,8 +178,6 @@ const p = new p5(
                     this.velocityBuffer[1] *= -1
                 }
 
-                this.alpha = document.querySelector("#opacity").value
-
                 // 色取得用
                 const positionIntX = Math.round(this.position[0])
                 const positionIntY = Math.round(this.position[1])
@@ -203,14 +203,14 @@ const p = new p5(
                     this.size = [r, g, b][which]
 
                     this.sizeBuffer = this.size
-                    scale = document.getElementById("scale").value
+                    scale = params.scale
                     this.size *= scale * 100 / 255 // lightnessの方とレンジが違う気がするんだよな…
                 } else if (colorMode == "full") {
                     // 現在位置の画素の色を取得
                     this.color = p.color(r, g, b)
                     //保存されたサイズを使う
                     this.size = this.sizeBuffer
-                    scale = document.getElementById("scale").value
+                    scale = params.scale
                     this.size *= scale
                 } else if (colorMode == "lightness") {
                     this.color = p.color(255)
@@ -219,14 +219,14 @@ const p = new p5(
                     // サイズに反映
                     this.size = lightness
                     this.sizeBuffer = this.size
-                    scale = document.getElementById("scale").value
+                    scale = params.scale
                     this.size *= scale
                 }
             }
 
             draw() {
                 // 色を設定
-                this.color.setAlpha(this.alpha)
+                this.color.setAlpha(params.alpha)
                 p.fill(this.color)
                 // 円を描画
                 p.ellipse(this.position[0], this.position[1], this.size)
