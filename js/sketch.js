@@ -9,9 +9,7 @@ const p = new p5(
         let img
         let images = []
 
-        let scale = 0.04
         let maxSpeed = 5
-        let speed = 1
         let ballSetNum = document.querySelector("#ballSetNum").value //3個で1セット
         let colorMode = Array.from(document.querySelectorAll("#colorMode input[type=radio]")).filter(option => option.checked)[0].value
         let defaultSize = 200
@@ -127,9 +125,6 @@ const p = new p5(
                 colorBalls.splice(ballSetNum * 3)
             }
 
-            // 速度を更新
-            speed = params.speed
-
             // ボールを更新
             colorBalls.forEach(ball => ball.update())
 
@@ -162,8 +157,8 @@ const p = new p5(
                 this.velocityBuffer = { ...this.velocity }
 
                 // 速度をスケール
-                this.velocity[0] *= speed
-                this.velocity[1] *= speed
+                this.velocity[0] *= params.speed
+                this.velocity[1] *= params.speed
 
                 // 位置を更新
                 this.position[0] += this.velocity[0]
@@ -201,17 +196,14 @@ const p = new p5(
                     const which = this.initialColor.indexOf(Math.max(...this.initialColor))
                     // サイズに反映
                     this.size = [r, g, b][which]
-
                     this.sizeBuffer = this.size
-                    scale = params.scale
-                    this.size *= scale * 100 / 255 // lightnessの方とレンジが違う気がするんだよな…
+                    this.size *= params.scale * 100 / 255 // lightnessの方とレンジが違う気がするんだよな…
                 } else if (colorMode == "full") {
                     // 現在位置の画素の色を取得
                     this.color = p.color(r, g, b)
-                    //保存されたサイズを使う
-                    this.size = this.sizeBuffer
-                    scale = params.scale
-                    this.size *= scale
+                    //デフォルトのサイズを使う
+                    this.size = defaultSize
+                    this.size *= params.scale
                 } else if (colorMode == "lightness") {
                     this.color = p.color(255)
                     // 色の明度を取得
@@ -219,8 +211,7 @@ const p = new p5(
                     // サイズに反映
                     this.size = lightness
                     this.sizeBuffer = this.size
-                    scale = params.scale
-                    this.size *= scale
+                    this.size *= params.scale
                 }
             }
 
