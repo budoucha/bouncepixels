@@ -109,8 +109,7 @@ const p = new p5(
 
         /* 画像を変更したらしたら毎回行う */
         const changeImageRoutine = () => {
-            const selected = params.selectedImage
-            img = images[selected]
+            img = images[params.selectedImage]
             const width = Math.min(window.innerWidth, 512)
             img.resize(width, 0)
             img.loadPixels()
