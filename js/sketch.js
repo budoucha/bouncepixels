@@ -196,23 +196,20 @@ const p = new p5(
                     const which = this.initialColor.indexOf(Math.max(...this.initialColor))
                     // サイズに反映
                     this.size = [r, g, b][which]
-                    this.sizeBuffer = this.size
-                    this.size *= params.scale * 100 / 255 // lightnessの方とレンジが違う気がするんだよな…
                 } else if (colorMode == "full") {
                     // 現在位置の画素の色を取得
                     this.color = p.color(r, g, b)
-                    //デフォルトのサイズを使う
-                    this.size = defaultSize
-                    this.size *= params.scale
+                    //デフォルトのサイズをなんちゃって正規化して使う
+                    this.size = defaultSize / 1.4
                 } else if (colorMode == "lightness") {
                     this.color = p.color(255)
                     // 色の明度を取得
                     const lightness = p.lightness(p.color(r, g, b))
                     // サイズに反映
-                    this.size = lightness
-                    this.sizeBuffer = this.size
-                    this.size *= params.scale
+                    this.size = lightness * 255 / 100 //おそらく他とレンジが違う
                 }
+                this.sizeBuffer = this.size
+                this.size *= params.scale / 100
             }
 
             draw() {
