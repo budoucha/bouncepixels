@@ -1,6 +1,6 @@
 const devMode = false
 const sliders = ['scale', 'ballSets', 'speed', 'opacity']
-const radios = ['colorMode', 'blendMode']
+const radios = ['colorMode', 'blendMode', 'selectedImage']
 const params = {}
 
 const p = new p5(
@@ -23,21 +23,20 @@ const p = new p5(
             p.pixelDensity(1)
             p.setFrameRate(60)
 
-            const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
-            const selected = imageSelectOptions.filter(option => option.checked)[0].value
-            changeImageRoutine(selected)
-
             /* ラジオボタン共通処理 */
             radios.forEach(radio => {
                 const radioElement = document.querySelector(`#${radio}`)
                 radioElement.addEventListener("change", e => {
                     const options = Array.from(document.querySelectorAll(`#${radio} input[type=radio]`))
                     params[radio] = options.filter(option => option.checked)[0].value
-                    console.log(params[radio])
                 })
                 // 初期化
                 radioElement.dispatchEvent(new Event("change"))
             })
+            // 画像切り替え時はchangeImageRoutineを呼ぶ
+            document.querySelector("#selectedImage").addEventListener("change", changeImageRoutine)
+            changeImageRoutine()
+
             /* スライダ共通処理 */
             sliders.forEach(slider => {
                 const sliderElement = document.getElementById(slider)
@@ -54,14 +53,6 @@ const p = new p5(
             document.querySelector("#ballSets").addEventListener("input", setColorBalls)
             setColorBalls()
 
-            // 画像切り替え
-            const imageSelectElement = document.querySelector("#imageSelect")
-            imageSelectElement.addEventListener("change", e => {
-                const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
-                const selected = imageSelectOptions.filter(option => option.checked)[0].value
-                changeImageRoutine(selected)
-            })
-            imageSelectElement.dispatchEvent(new Event("change"))
 
             /* ファイル選択 */
             const handleFile = (e) => {
@@ -70,7 +61,7 @@ const p = new p5(
                     images["user"] = p.loadImage(URL.createObjectURL(file),
                         () => {
                             // ラジオボタンジャマーキャンセラー
-                            document.querySelector("#imageSelect>[name=image][value=user]").disabled = false
+                            document.querySelector("#selectedImage>[name=image][value=user]").disabled = false
                         })
                 } else {
                     console.log("Something went wrong.")
@@ -117,7 +108,8 @@ const p = new p5(
         }
 
         /* 画像を変更したらしたら毎回行う */
-        const changeImageRoutine = (selected) => {
+        const changeImageRoutine = () => {
+            const selected = params.selectedImage
             img = images[selected]
             const width = Math.min(window.innerWidth, 512)
             img.resize(width, 0)
