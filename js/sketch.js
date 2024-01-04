@@ -151,18 +151,18 @@ const p = new p5(
                 this.velocity = { ...this.velocityBuffer }
 
                 const positionInt = [] // 色取得用に整数化した座標
-                
+
                 for (let i = 0; i < 2; i++) {
-                // 速度をスケール
+                    // 速度をスケール
                     this.velocity[i] *= params.speed
-                // 位置を更新
+                    // 位置を更新
                     this.position[i] += this.velocity[i]
                     //画面端で跳ね返る
                     const canvasSize = [p.width, p.height]
                     if (this.position[i] < 0 || this.position[i] > canvasSize[i]) {
                         this.position[i] = this.position[i] < 0 ? 0 : canvasSize[i]
                         this.velocityBuffer[i] *= -1
-                }
+                    }
 
                     positionInt[i] = Math.round(this.position[i])
                 }
