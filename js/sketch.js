@@ -1,5 +1,6 @@
 const devMode = false
 const sliders = ['scale', 'ballSets', 'speed', 'opacity']
+const checkboxes = ['trace']
 const radios = ['colorMode', 'blendMode', 'selectedImage']
 const params = {}
 
@@ -36,6 +37,16 @@ const p = new p5(
             // 画像切り替え時はchangeImageRoutineを呼ぶ
             document.querySelector("#selectedImage").addEventListener("change", changeImageRoutine)
             changeImageRoutine()
+
+            /* チェックボックス共通処理 */
+            checkboxes.forEach(checkbox => {
+                const checkboxElement = document.querySelector(`#${checkbox}`)
+                checkboxElement.addEventListener("change", e => {
+                    params[checkbox] = e.target.checked
+                })
+                // 初期化
+                checkboxElement.dispatchEvent(new Event("change"))
+            })
 
             /* スライダ共通処理 */
             sliders.forEach(slider => {
@@ -86,7 +97,7 @@ const p = new p5(
 
         p.draw = () => {
             p.blendMode(p.BLEND)
-            if (document.querySelector("#trace").checked) {
+            if (params.trace) {
                 p.background(16, 8)
             } else {
                 p.background(16)
