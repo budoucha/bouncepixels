@@ -3,3 +3,6 @@
 
 ## demo page
 https://budoucha.github.io/bouncepixels/
+
+## 姉妹プロジェクト
+https://github.com/budoucha/rotatepixels/
