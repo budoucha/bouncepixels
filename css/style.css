@@ -19,6 +19,10 @@ div {
     width: 100%;
     margin: 0;
     padding: 0 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.4em;
 }
 
 #canvasContainer {
@@ -30,28 +34,16 @@ canvas {
     background-color: black;
 }
 
-
-div.radio-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: 0.2em 0;
-    padding: 0;
-    gap: 0.4em;
-}
-
-div.slider {
+div.radio-group, div.slider, div.checkbox-group {
     width: 100%;
-    margin: 0.2em 0;
-    display: flex;
-    flex-direction: row;
-    align-self: center;
-    justify-content: center;
+    padding: 0;
+    margin: 0.4em 0;
+    gap: 0.4em;
+    font-size: small;
 }
 
 input[type=range] {
-    width: 80%;
+    width: 75%;
     margin: 0;
 }
 
@@ -59,7 +51,6 @@ div.slider>label {
     width: 8%;
     font-size: small;
     text-align: right;
-    margin-left: 2%;
 }
 
 div.gifSaveContainer {
