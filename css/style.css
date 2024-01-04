@@ -1,27 +1,58 @@
+html {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 body {
     background-color: beige;
+    width: fit-content(0);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-self: center;
+    box-sizing: border-box;
+}
+
+div {
+    width: 100%;
+    margin: 0;
+    padding: 0 1em;
+}
+
+#canvasContainer {
+    width: min-content;
+    padding: 0;
 }
 
 canvas {
     background-color: black;
 }
 
-input[type=range] {
-    width: 90%;
-    margin: 0;
+
+div.radio-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0.2em 0;
+    padding: 0;
+    gap: 0.4em;
 }
 
 div.slider {
-    width: 512px;
-    margin: 0 0.5em;
+    width: 100%;
+    margin: 0.2em 0;
     display: flex;
     flex-direction: row;
-    justify-content: left;
     align-self: center;
+    justify-content: center;
+}
+
+input[type=range] {
+    width: 80%;
+    margin: 0;
 }
 
 div.slider>label {
@@ -32,5 +63,6 @@ div.slider>label {
 }
 
 div.gifSaveContainer {
-    margin: 1em;
+    width: 100%;
+    padding: 1em;
 }
