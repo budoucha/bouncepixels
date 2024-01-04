@@ -49,7 +49,7 @@ const p = new p5(
                 // 初期化
                 sliderElement.dispatchEvent(new Event("input"))
             })
-            // 個数のみ更新時に再初期化する
+            // 個数のみ更新時に再初期化する(must be imgの初期化後)
             document.querySelector("#ballSets").addEventListener("input", setColorBalls)
             setColorBalls()
 
