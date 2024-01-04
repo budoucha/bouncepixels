@@ -26,6 +26,10 @@ div {
     gap: 0.4em;
 }
 
+div.footer {
+    margin: 1.6em 0;
+}
+
 #canvasContainer {
     width: min-content;
     padding: 0;
